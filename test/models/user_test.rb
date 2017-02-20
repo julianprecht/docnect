@@ -113,7 +113,138 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  ################################
-  # PATIENT VALIDATION TESTS TBC #
-  ################################
+  test 'patient occupation exists and is of valid length' do
+    invalid_occupations = [nil, '', 'a' * 256]
+    invalid_occupations.each do |invalid|
+      @patient.occupation = invalid
+      assert_not @patient.valid?, "#{invalid.inspect} should not be a valid occupation"
+    end
+  end
+
+  test 'patient marital status exists and is of valid length' do
+    invalid_occupations = [nil, '', 'a' * 256]
+    invalid_occupations.each do |invalid|
+      @patient.marital_status = invalid
+      assert_not @patient.valid?, "#{invalid.inspect} should not be a valid occupation"
+    end
+  end
+
+  test 'patient drug field must be boolean' do
+    # Any non-empty string evaluates to a logical truth
+    valid_entries = [true, false, 'a', 'a' * 256]
+    valid_entries.each do |valid|
+      @patient.drugs = valid
+      assert @patient.valid?, "#{valid.inspect} should be a valid drugs entry"
+    end
+
+    invalid_entries = ['', nil]
+    invalid_entries.each do |invalid|
+      @patient.drugs = invalid
+      assert_not @patient.valid?, "#{invalid.inspect} should not be a valid drugs entry"
+    end
+  end
+
+  test 'patient nationality must exist and cannot be blank' do
+    @patient.nationality = ''
+    assert_not @patient.valid?
+
+    @patient.nationality = nil
+    assert_not @patient.valid?
+  end
+
+  test 'patient hobbies must exist and cannot be blank' do
+    @patient.hobbies = ''
+    assert_not @patient.valid?
+
+    @patient.hobbies = nil
+    assert_not @patient.valid?
+  end
+
+  test 'patient languages must exist and cannot be blank' do
+    @patient.languages = ''
+    assert_not @patient.valid?
+
+    @patient.languages = nil
+    assert_not @patient.valid?
+  end
+
+  test 'patient age must exist and cannot be blank' do
+    @patient.age = ''
+    assert_not @patient.valid?
+
+    @patient.age = nil
+    assert_not @patient.valid?
+  end
+
+  test 'patient height must exist and cannot be blank' do
+    @patient.height = ''
+    assert_not @patient.valid?
+
+    @patient.height = nil
+    assert_not @patient.valid?
+  end
+
+  test 'patient weight must exist and cannot be blank' do
+    @patient.weight = ''
+    assert_not @patient.valid?
+
+    @patient.weight = nil
+    assert_not @patient.valid?
+  end
+
+  test 'patient allergies must exist and cannot be blank' do
+    @patient.allergies = ''
+    assert_not @patient.valid?
+
+    @patient.allergies = nil
+    assert_not @patient.valid?
+  end
+
+  test 'patient smoking history must exist and cannot be blank' do
+    @patient.smoke = ''
+    assert_not @patient.valid?
+
+    @patient.smoke = nil
+    assert_not @patient.valid?
+  end
+
+  test 'patient alcohol usage must exist and cannot be blank' do
+    @patient.alcohol = ''
+    assert_not @patient.valid?
+
+    @patient.alcohol = nil
+    assert_not @patient.valid?
+  end
+
+  test 'patient detail of tattoos must exist and cannot be blank' do
+    @patient.tattoos = ''
+    assert_not @patient.valid?
+
+    @patient.tattoos = nil
+    assert_not @patient.valid?
+  end
+
+  test 'patient medical history must exist and cannot be blank' do
+    @patient.history = ''
+    assert_not @patient.valid?
+
+    @patient.history = nil
+    assert_not @patient.valid?
+  end
+
+  test 'patient current medication must exist and cannot be blank' do
+    @patient.medication = ''
+    assert_not @patient.valid?
+
+    @patient.medication = nil
+    assert_not @patient.valid?
+  end
+
+  test 'patient known illnesses must exist and cannot be blank' do
+    @patient.illness = ''
+    assert_not @patient.valid?
+
+    @patient.illness = nil
+    assert_not @patient.valid?
+  end
 end

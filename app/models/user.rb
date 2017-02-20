@@ -46,15 +46,15 @@ class User < ApplicationRecord
             if: :is_doctor?
 
   # Patient-specific record validation
-  validates :dob, :nationality, :marital_status, :hobbies, :languages, :age, :height, :weight, :allergies, :smoke, :alcohol, :tattoos, :history, :medication, :illness,
+  validates :dob, :nationality, :hobbies, :languages, :age, :height, :weight, :allergies, :smoke, :alcohol, :tattoos, :history, :medication, :illness,
             presence: true,
             if: :is_patient?
-  validates :occupation,
+  validates :occupation, :marital_status,
             presence: true,
             length: { maximum: 255 },
             if: :is_patient?
   validates :drugs,
-            inclusion: { in: [true, false] },
+            inclusion: { in: [ true, false ] },
             if: :is_patient?
 
 private
