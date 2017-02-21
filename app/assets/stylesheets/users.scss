@@ -1,0 +1,21 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.patient-info {
+  margin-top: 5px;
+  p {
+    font-size: 1em;
+    line-height: 1.4em;
+  }
+}
+
+.patient-title {
+  text-align: right;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.show-section {
+  margin-top: 25px;
+  margin-bottom: 15px;
+}

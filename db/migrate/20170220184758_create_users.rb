@@ -21,9 +21,8 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.text :hobbies
       # Languages - could be drop down box?
       t.text :languages
-      t.integer :age
-      t.integer :height
-      t.integer :weight
+      t.float :height
+      t.float :weight
       t.text :allergies
       t.text :smoke
       t.text :alcohol

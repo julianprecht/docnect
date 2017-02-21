@@ -1,0 +1,88 @@
+<% provide(:title, 'Edit Profile') %>
+<h1>Edit Your Profile</h1>
+<h2 class="show-section">All fields are required and must be filled.<br>Please ensure all information is kept up-to-date.</h2>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <%= form_for @user do |f| %>
+        <% @error = @user %>
+        <%= render 'layouts/errors' %>
+
+        <h3 class="show-section">Account Settings:</h3>
+        <%= f.text_field :name, class: 'form-control', placeholder: 'Full Name' %>
+        <%= f.email_field :email, class: 'form-control', placeholder: 'Email Address' %>
+        <%= f.password_field :password, class: 'form-control', placeholder: 'Password (leave blank to not change)' %>
+        <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'Confirm Password' %>
+
+        <% if @user.user_group == 1 %>
+            <h3 class="show-section">Personal Information:</h3>
+            <%= f.label :dob %>
+            <%= f.date_field :dob, max: Date.today, class: 'form-control' %>
+
+            <%= f.label :nationality %>
+            <%= f.text_field :nationality, class: 'form-control' %>
+
+            <%= f.label :languages %>
+            <%= f.text_field :languages, class: 'form-control' %>
+
+            <%= f.label :marital_status %>
+            <%= f.select :marital_status, ['Single', 'Married/Civil Partner', 'Divorced/Civil Partnership dissolved', 'Widowed/Surviving Civil Partner', 'Separated', 'Do not wish to disclose'], {},  { :class => 'form-control' } %>
+
+            <%= f.label :occupation %>
+            <%= f.text_field :occupation, class: 'form-control' %>
+
+            <%= f.label :hobbies, 'Please outline your hobbies:' %>
+            <%= f.text_area :hobbies, rows: '3', class: 'form-control' %>
+
+            <h3 class="show-section">Medical Information:</h3>
+            <%= f.label :height %>
+            <%= f.number_field :height, step: 0.1, min: 0, class: 'form-control' %>
+
+            <%= f.label :weight %>
+            <%= f.number_field :weight, step: 0.1, min: 0, class: 'form-control' %>
+
+            <%= f.label :allergies, 'Please detail any allergies you know you have:' %>
+            <%= f.text_area :allergies, rows: '4', class: 'form-control' %>
+
+            <%= f.label :smoke, 'Do you smoke? If yes, or you have in the past, how much per day now or back when you did smoke?' %>
+            <%= f.text_area :smoke, rows: '3', class: 'form-control' %>
+
+            <%= f.label :alcohol, 'Do you drink alcohol? If yes, or you have in the past, how much per day now or back when you did consume alcohol?' %>
+            <%= f.text_area :alcohol, rows: '3', class: 'form-control' %>
+
+            <%= f.label :tattoos, 'Do you have any tattoos on your person? If yes, where?' %>
+            <%= f.text_area :tattoos, rows: '2', class: 'form-control' %>
+
+            <%= f.label :history, 'Please detail any disease and/or surgery you have experienced in the past. Please include in the information given these points: when, where and how were you diagnosed, any complications you experienced, treatment details and any active problems:' %>
+            <%= f.text_area :history, rows: '6', class: 'form-control' %>
+
+            <%= f.label :medication, 'Are you currently on medication or were you in the past? If yes, which one(s)?' %>
+            <%= f.text_area :medication, rows: '4', class: 'form-control' %>
+
+            <%= f.label :drugs, class: 'checkbox inline' do %>
+                <%= f.check_box :drugs %>
+                <span>Do you make use of illegal drugs?</span>
+            <% end %>
+
+            <%= f.label :illness, 'Are there any illnesses known to run in your family?' %>
+            <%= f.text_area :illness, rows: '4', class: 'form-control' %>
+
+        <% elsif @user.user_group == 2 %>
+            <h3 class="show-section">Professional Information:</h3>
+            <%= f.label :specialization %>
+            <%= f.text_field :specialization, class: 'form-control' %>
+
+            <%= f.label :phone %>
+            <%= f.phone_field :phone, class: 'form-control' %>
+
+            <%= f.label :address %>
+            <%= f.text_area :address, rows: '4', class: 'form-control' %>
+
+            <%= f.label :bio %>
+            <%= f.text_area :bio, rows: '4', class: 'form-control' %>
+
+        <% end %>
+        <%= f.submit 'Update Profile', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

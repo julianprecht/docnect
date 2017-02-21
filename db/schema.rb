@@ -10,25 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220191205) do
+ActiveRecord::Schema.define(version: 20170221223624) do
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
-    t.integer  "user_group",      default: 1
+    t.integer  "user_group",        default: 1
     t.string   "name"
     t.string   "specialization"
     t.string   "phone"
     t.text     "address"
-    t.text     "bio",             default: ""
+    t.text     "bio",               default: ""
     t.datetime "dob"
     t.text     "nationality"
     t.string   "marital_status"
     t.string   "occupation"
     t.text     "hobbies"
     t.text     "languages"
-    t.integer  "age"
-    t.integer  "height"
-    t.integer  "weight"
+    t.float    "height"
+    t.float    "weight"
     t.text     "allergies"
     t.text     "smoke"
     t.text     "alcohol"
@@ -37,9 +36,13 @@ ActiveRecord::Schema.define(version: 20170220191205) do
     t.text     "medication"
     t.boolean  "drugs"
     t.text     "illness"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "password_digest"
+    t.boolean  "activated",         default: false
+    t.datetime "activated_at"
+    t.string   "activation_digest"
+    t.string   "remember_digest"
   end
 
 end

@@ -20,4 +20,28 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      user:
+        one: User
+        other: Users
+        email: 'Email Address'
+        name: 'Full Name'
+        specialization: 'Medical Specialization'
+        phone: 'Phone Number'
+        address: 'Surgery Address'
+        bio: 'Personal Bio'
+        dob: 'Date of Birth'
+        nationality: 'Nationality/Nationalities'
+        languages: 'Spoken Languages'
+        marital_status: 'Marital Status'
+        occupation: 'Current Occupation'
+        height: 'Height (cm)'
+        weight: 'Weight (kg)'
+        allergies: 'Known Allergies'
+        smoke: 'Smoking History'
+        alcohol: 'Alcohol History'
+        tattoos: 'Current Tattoos'
+        history: 'Medical History'
+        medication: 'Current Medication'
+        illness: 'Known Family Illnesses'

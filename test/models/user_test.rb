@@ -2,9 +2,9 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   def setup
-    @super = User.create!(email: 'test_super@test.com', user_group: 0, name: 'Super User', password: 'foobar', password_confirmation: 'foobar')
-    @doctor = User.create!(email: 'test_doctor@test.com', user_group: 2, name: 'Doctor', password: 'foobar', password_confirmation: 'foobar', specialization: 'test specialization', phone: '00000 000000', address: 'test address', bio: 'test bio')
-    @patient = User.create!(email: 'test_patient@test.com', user_group: 1, name: 'Patient', password: 'foobar', password_confirmation: 'foobar', dob: Time.zone.now, nationality: 'test nationality', marital_status: 'test marital status', occupation: 'test occupation', hobbies: 'test hobbies', languages: 'test languages', age: 44, height: 180, weight: 70, allergies: 'test allergies', smoke: 'test smoke', alcohol: 'test alcohol', tattoos: 'test tattoos', history: 'test history', medication: 'test medication', drugs: false, illness: 'test illness')
+    @super = User.create!(email: 'test_s@test.com', user_group: 0, name: 'Super User', password: 'foobar', password_confirmation: 'foobar', activated: true, activated_at: Time.zone.now)
+    @doctor = User.create!(email: 'test_d@test.com', user_group: 2, name: 'Doctor', password: 'foobar', password_confirmation: 'foobar', activated: true, activated_at: Time.zone.now, specialization: 'test specialization', phone: '00000 000000', address: 'test address', bio: 'test bio')
+    @patient = User.create!(email: 'test_p@test.com', user_group: 1, name: 'Patient', password: 'foobar', password_confirmation: 'foobar', activated: true, activated_at: Time.zone.now, dob: Time.zone.now, nationality: 'test nationality', marital_status: 'test marital status', occupation: 'test occupation', hobbies: 'test hobbies', languages: 'test languages', height: 180, weight: 70, allergies: 'test allergies', smoke: 'test smoke', alcohol: 'test alcohol', tattoos: 'test tattoos', history: 'test history', medication: 'test medication', drugs: false, illness: 'test illness')
   end
 
   test 'super user is valid' do
@@ -165,14 +165,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not @patient.valid?
 
     @patient.languages = nil
-    assert_not @patient.valid?
-  end
-
-  test 'patient age must exist and cannot be blank' do
-    @patient.age = ''
-    assert_not @patient.valid?
-
-    @patient.age = nil
     assert_not @patient.valid?
   end
 

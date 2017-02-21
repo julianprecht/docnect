@@ -1,11 +1,43 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+super:
+  email: test_super@test.com
+  user_group: 0
+  name: Super User
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+doctor:
+  email: test_doctor@test.com
+  user_group: 2
+  name: Doctor
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+  specialization: test specialization
+  phone: 00000 000000
+  address: test address
+  bio: test bio
+
+patient:
+  email: test_patient@test.com
+  user_group: 1
+  name: Patient
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+  dob: <%= Time.zone.now %>
+  nationality: test nationality
+  marital_status: test marital status
+  occupation: test occupation
+  hobbies: test hobbies
+  languages: test languages
+  height: 180
+  weight: 70
+  allergies: test allergies
+  smoke: test smoke
+  alcohol: test alcohol
+  tattoos: test tattoos
+  history: test history
+  medication: test medication
+  drugs: false
+  illness: test illness

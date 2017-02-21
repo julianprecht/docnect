@@ -5,6 +5,23 @@
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to 'Home', root_path %></li>
         <li><%= link_to 'About', about_path %></li>
+        <% if logged_in? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <%= current_user.name %>
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="center"><%= link_to 'Profile', current_user %></li>
+                <li class="center"><%= link_to 'Settings', edit_user_path(current_user) %></li>
+                <li class="divider"></li>
+                <li class="center"><%= link_to 'Logout', logout_path, method: :delete %></li>
+              </ul>
+            </li>
+        <% else %>
+            <li><%= link_to 'Log In', login_path %></li>
+            <li><%= link_to 'Sign Up', signup_path %></li>
+        <% end %>
       </ul>
     </nav>
   </div>
