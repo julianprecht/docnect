@@ -1,6 +1,9 @@
 <% provide(:title, 'Edit Profile') %>
 <h1>Edit Your Profile</h1>
-<h2 class="show-section">All fields are required and must be filled.<br>Please ensure all information is kept up-to-date.</h2>
+<% if @user.user_group != 0 %>
+    <h2 class="show-section">All fields are required and must be filled.<br>Please ensure all information is kept up-to-date.</h2>
+    <h3 class="show-section">Account Settings:</h3>
+<% end %>
 
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
@@ -8,7 +11,6 @@
         <% @error = @user %>
         <%= render 'layouts/errors' %>
 
-        <h3 class="show-section">Account Settings:</h3>
         <%= f.text_field :name, class: 'form-control', placeholder: 'Full Name' %>
         <%= f.email_field :email, class: 'form-control', placeholder: 'Email Address' %>
         <%= f.password_field :password, class: 'form-control', placeholder: 'Password (leave blank to not change)' %>
@@ -83,6 +85,14 @@
 
         <% end %>
         <%= f.submit 'Update Profile', class: 'btn btn-primary' %>
+    <% end %>
+    <% unless @user.user_group == 0 %>
+        <h3 class="show-section">
+          If you no longer wish to keep your account at Docnect,
+          <%= link_to 'click here', @user, method: :delete,
+                      data: { confirm: 'This action cannot be undone. Are you sure you wish to delete your account from Docnect?' } %>
+          to delete your account and all associated records.
+        </h3>
     <% end %>
   </div>
 </div>

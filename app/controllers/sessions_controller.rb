@@ -14,7 +14,11 @@ class SessionsController < ApplicationController
         login @user
         params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
         flash[:info] = "Hi #{@user.name}, welcome back to Docnect!"
-        redirect_back_or @user
+        if @user.user_group == 0
+          redirect_back_or signup_url
+        else
+          redirect_back_or @user
+        end
       else
         flash[:warning] = 'Account not activated, please check your emails for the activation link.'
         redirect_to root_url
@@ -28,5 +32,13 @@ class SessionsController < ApplicationController
   def destroy
     logout if logged_in?
     redirect_to root_url
+  end
+
+private
+
+  def require_logout
+    if logged_in?
+      redirect_to current_user
+    end
   end
 end

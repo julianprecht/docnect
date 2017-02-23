@@ -96,15 +96,6 @@ p {
   }
 }
 
-.pagination .center {
-  color: $gray-light;
-  font-size: 0.9em;
-}
-
-.pagination a {
-  margin-bottom: 5px;
-}
-
 #logo {
   float: left;
   margin-right: 10px;
@@ -193,4 +184,13 @@ input[type=date].form-control {
   span {
     font-weight: bold;
   }
+}
+
+.pagination .center {
+  color: $gray-light;
+  font-size: 0.9em;
+}
+
+.pagination a {
+  margin-bottom: 5px;
 }

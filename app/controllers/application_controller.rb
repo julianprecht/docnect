@@ -15,15 +15,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def require_logout
-    if logged_in?
-      redirect_to current_user
-    end
-  end
-
   def require_valid
     unless current_user.valid?
-      flash[:info] = 'Please complete your profile before continuing.'
+      flash[:warning] = 'Please complete your profile before continuing.'
       redirect_to edit_user_path(current_user)
     end
   end

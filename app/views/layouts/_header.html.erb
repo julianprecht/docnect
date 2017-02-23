@@ -3,22 +3,30 @@
     <%= link_to 'Docnect', root_path, id: 'logo' %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to 'Home', root_path %></li>
-        <li><%= link_to 'About', about_path %></li>
         <% if logged_in? %>
+            <% if current_user.user_group == 0 %>
+                <li><%= link_to 'List of Users', users_path %></li>
+                <li><%= link_to 'Add New User', signup_path %></li>
+            <% else %>
+                <li><%= link_to current_user.user_group == 1 ? 'List of Doctors' : 'My Patients', users_path %></li>
+            <% end %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <%= current_user.name %>
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li class="center"><%= link_to 'Profile', current_user %></li>
+                <% if current_user.user_group != 0 %>
+                    <li class="center"><%= link_to 'Profile', current_user %></li>
+                <% end %>
                 <li class="center"><%= link_to 'Settings', edit_user_path(current_user) %></li>
                 <li class="divider"></li>
                 <li class="center"><%= link_to 'Logout', logout_path, method: :delete %></li>
               </ul>
             </li>
         <% else %>
+            <li><%= link_to 'Home', root_path %></li>
+            <li><%= link_to 'About', about_path %></li>
             <li><%= link_to 'Log In', login_path %></li>
             <li><%= link_to 'Sign Up', signup_path %></li>
         <% end %>

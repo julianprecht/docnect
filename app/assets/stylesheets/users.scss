@@ -1,6 +1,5 @@
-// Place all the styles related to the users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
 .patient-info {
   margin-top: 5px;
   p {
@@ -18,4 +17,18 @@
 .show-section {
   margin-top: 25px;
   margin-bottom: 15px;
+}
+
+.users {
+  list-style: none;
+  margin: 0;
+  padding-left: 40px;
+  padding-right: 40px;
+
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1px solid #eaeaea;
+    color: #999;
+  }
 }

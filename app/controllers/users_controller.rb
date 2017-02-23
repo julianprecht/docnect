@@ -1,12 +1,34 @@
 class UsersController < ApplicationController
+  # Catch user record not found exception
+  rescue_from ActiveRecord::RecordNotFound, :with => :user_not_found
+  def user_not_found
+    if logged_in?
+      redirect_to current_user
+    else
+      redirect_to root_url
+    end
+  end
+
   skip_before_action :require_login, only: [:new, :create]
   skip_before_action :require_valid, only: [:new, :create, :edit, :update, :destroy]
 
   before_action :require_logout, only: [:new, :create]
   before_action :require_correct_user, only: [:edit, :update, :destroy]
+  before_action :deny_super, only: [:show]
 
   def index
-    # @users = all patients of a doctor
+    case current_user.user_group
+      when 0
+        @users = User.all.where(activated: true).paginate(page: params[:page], :per_page => 20)
+        @title = 'All Users'
+      when 2
+        # Change to only include patients of current doctor
+        @users = User.all.where(user_group: 1, activated: true).paginate(page: params[:page], :per_page => 20)
+        @title = 'Your Patients'
+      else
+        @users = User.all.where(user_group: 2, activated: true).paginate(page: params[:page], :per_page => 20)
+        @title = 'All Doctors'
+    end
   end
 
   def show
@@ -20,13 +42,30 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+
+    # If account is being created by super, set account user group to 2 (doctor)
+    if logged_in?
+      @user.user_group = 2
+    end
   end
 
   def create
     @user = User.new(user_params)
+    # Set random password for new doctors - make sure to remind to change/use 'forgot password' to set proper password
+    if logged_in?
+      random = User.new_token
+      @user.password = random
+      @user.password_confirmation = random
+    end
+
     if @user.save
-      flash[:info] = 'Please check your emails to activate your account!'
-      redirect_to root_url
+      if logged_in?
+        flash[:info] = "#{@user.name} has been sent an email with information to activate their account!"
+        redirect_to signup_url
+      else
+        flash[:info] = 'Please check your emails to activate your account!'
+        redirect_to root_url
+      end
     else
       render 'new'
     end
@@ -40,7 +79,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     params = nil
-    if @user.user_group == 1
+    if @user.user_group == 0
+      params = user_params
+    elsif @user.user_group == 1
       params = patient_params
     elsif @user.user_group == 2
       params = doctor_params
@@ -48,7 +89,11 @@ class UsersController < ApplicationController
 
     if params && @user.update_attributes(params)
       flash[:info] = 'Profile successfully updated!'
-      redirect_to @user
+      if @user.user_group == 0
+        redirect_to users_url
+      else
+        redirect_to @user
+      end
     else
       render 'edit'
     end
@@ -58,7 +103,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     flash[:info] = 'Account successfully deleted.'
-    redirect_to root_url
+    if logged_in?
+      redirect_to users_url
+    else
+      redirect_to root_url
+    end
   end
 
 private
@@ -77,6 +126,17 @@ private
 
   def require_correct_user
     @user = User.find(params[:id])
-    redirect_to current_user unless current_user?(@user)
+    redirect_to current_user unless current_user?(@user) || current_user.user_group == 0
+  end
+
+  def deny_super
+    @user = User.find(params[:id])
+    redirect_to edit_user_path(current_user) if current_user?(@user) && @user.user_group == 0
+  end
+
+  def require_logout
+    if logged_in? && current_user.user_group != 0
+      redirect_to current_user
+    end
   end
 end
