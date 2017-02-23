@@ -6,11 +6,17 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get index' do
+    log_in_as @doctor
+    assert is_logged_in?
+
     get users_url
     assert_response :success
   end
 
   test 'should get show' do
+    log_in_as @doctor
+    assert is_logged_in?
+
     get user_url(@doctor)
     assert_response :success
   end
@@ -21,6 +27,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get edit' do
+    log_in_as @doctor
+    assert is_logged_in?
+
     get edit_user_url(@doctor)
     assert_response :success
   end
