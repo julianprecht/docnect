@@ -42,26 +42,23 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-
-    # If account is being created by super, set account user group to 2 (doctor)
-    if logged_in?
-      @user.user_group = 2
-    end
   end
 
   def create
     @user = User.new(user_params)
-    # Set random password for new doctors - make sure to remind to change/use 'forgot password' to set proper password
+    # Set random password for new doctors, also set user group
     if logged_in?
       random = User.new_token
       @user.password = random
       @user.password_confirmation = random
+      @user.user_group = 2
     end
 
     if @user.save
+      @user.send_activation_email
       if logged_in?
         flash[:info] = "#{@user.name} has been sent an email with information to activate their account!"
-        redirect_to signup_url
+        redirect_to new_user_path
       else
         flash[:info] = 'Please check your emails to activate your account!'
         redirect_to root_url

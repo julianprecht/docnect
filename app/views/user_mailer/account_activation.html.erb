@@ -1,0 +1,15 @@
+<p>Hi <%= @user.name %>!</p>
+
+<p>Welcome to Docnect!</p>
+
+<% if @user.user_group == 1 %>
+    <p>You're just one step away from using Docnect - please click on the link below to get started!</p>
+<% else %>
+    <p>Your doctor's account has just been setup on Docnect, please click on the link below to get started!</p>
+    <p>Don't forget to change your password after activating your account, or select 'Forgot Password' next time you log in.</p>
+<% end %>
+
+<p><%= link_to 'Activate Your Account', edit_account_activation_url(@user.activation_token, email: @user.email) %></p>
+
+<p>Thanks,</p>
+<p><i>The Docnect Team</i></p>

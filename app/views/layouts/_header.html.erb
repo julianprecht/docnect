@@ -6,7 +6,7 @@
         <% if logged_in? %>
             <% if current_user.user_group == 0 %>
                 <li><%= link_to 'List of Users', users_path %></li>
-                <li><%= link_to 'Add New User', signup_path %></li>
+                <li><%= link_to 'Add New User', new_user_path %></li>
             <% else %>
                 <li><%= link_to current_user.user_group == 1 ? 'List of Doctors' : 'My Patients', users_path %></li>
             <% end %>

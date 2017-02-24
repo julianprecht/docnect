@@ -1,0 +1,15 @@
+Hi <%= @user.name %>!
+
+Welcome to Docnect!
+
+<% if @user.user_group == 1 %>
+    You're just one step away from using Docnect - please navigate to the URL below to get started!
+<% else %>
+    Your doctor's account has just been setup on Docnect, please navigate to the URL below to get started!
+    Don't forget to change your password after activating your account, or select 'Forgot Password' next time you log in.
+<% end %>
+
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>
+
+Thanks,
+The Docnect Team
