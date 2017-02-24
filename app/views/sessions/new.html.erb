@@ -16,6 +16,7 @@
         <%= f.submit 'Log In', class: 'btn btn-primary' %>
     <% end %>
 
-    <h3><%= link_to 'Click here', signup_path %> to sign up to Docnect!</h3>
+    <h3 class="show-section"><%= link_to "I've forgotten my password.", new_password_reset_path %></h3>
+    <h3 class="show-section">Don't have an account? <%= link_to 'Click here', signup_path %> to sign up to Docnect!</h3>
   </div>
 </div>
