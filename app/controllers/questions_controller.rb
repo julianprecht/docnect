@@ -1,11 +1,12 @@
 class QuestionsController < ApplicationController
   # Catch question record not found exception
-  rescue_from ActiveRecord::RecordNotFound, :with => :question_not_found
+  #rescue_from ActiveRecord::RecordNotFound, :with => :question_not_found
   def question_not_found
     flash[:danger] = 'Something went wrong, please try again.'
     redirect_to test_path
   end
 
+  before_action :deny_super
   # Ensure users cannot input unless their current question requires
   before_action :require_user_input, only: [:new]
   before_action :check_user_input, only: [:test]
@@ -67,13 +68,7 @@ class QuestionsController < ApplicationController
       flash[:success] = 'Thanks for completing the test.'
       redirect_to current_user
     else
-      # Just in case answer saves but column update fails
-      if Question.find(@answer.id)
-        @answer.destroy
-      end
-      # Throw error
-      flash[:danger] = 'Something went wrong, please try again.'
-      redirect_to test_input_path
+      render 'new'
     end
   end
 
@@ -81,6 +76,12 @@ private
 
   def answer_params
     params.require(:question).permit(:answer)
+  end
+
+  def deny_super
+    if current_user.user_group == 0
+      redirect_to edit_user_path(current_user)
+    end
   end
 
   def require_user_input

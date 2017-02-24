@@ -122,11 +122,11 @@ private
   end
 
   def is_doctor?
-    activated && user_group == 2
+    activated && user_group == 2 && !reset_digest
   end
 
   def is_patient?
-    activated && user_group == 1
+    activated && user_group == 1 && !reset_digest
   end
 
   def create_activation_digest
