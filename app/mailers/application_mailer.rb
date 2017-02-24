@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  default from: 'Docnect <noreply@docnect.herokuapp.com>'
   layout 'mailer'
 end
