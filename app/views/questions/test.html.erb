@@ -1,0 +1,15 @@
+<% provide(:title, 'Diagnostic Test') %>
+<h1><%= @question.question %></h1>
+
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <ul class="item-list">
+      <% @answers.each do |answer| %>
+          <li>
+            <%= link_to answer.answer, test_path(answer_id: answer.id), method: :post %>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

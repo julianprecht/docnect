@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170224011330) do
+ActiveRecord::Schema.define(version: 20170224190709) do
+
+  create_table "questions", force: :cascade do |t|
+    t.integer  "parent_id"
+    t.text     "answer",     default: ""
+    t.text     "question",   default: ""
+    t.boolean  "terminal",   default: false
+    t.text     "diagnosis",  default: ""
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["parent_id"], name: "index_questions_on_parent_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
@@ -45,6 +56,9 @@ ActiveRecord::Schema.define(version: 20170224011330) do
     t.string   "remember_digest"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.integer  "questions_id",      default: 1
+    t.datetime "last_test"
+    t.index ["questions_id"], name: "index_users_on_questions_id"
   end
 
 end

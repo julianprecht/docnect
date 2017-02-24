@@ -7,8 +7,28 @@
             <% if current_user.user_group == 0 %>
                 <li><%= link_to 'List of Users', users_path %></li>
                 <li><%= link_to 'Add New User', new_user_path %></li>
+            <% elsif current_user.user_group == 1 %>
+                <% if current_user.questions_id == 1 %>
+                    <li><%= link_to 'Diagnostic Test', test_path %></li>
+                <% else %>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Diagnostic Test <b class="caret"></b>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <% if Question.find(current_user.questions_id).question == '' %>
+                            <li class="center last-test">Last diagnostic test: <%= time_ago_in_words(current_user.last_test) %> ago</li>
+                        <% else %>
+                            <li class="center"><%= link_to 'Continue Test', test_path %></li>
+                        <% end %>
+                        <li class="divider"></li>
+                        <li class="center"><%= link_to 'Begin New Test', test_path(answer_id: 1), method: :post %></li>
+                      </ul>
+                    </li>
+                <% end %>
+                <li><%= link_to 'List of Doctors', users_path %></li>
             <% else %>
-                <li><%= link_to current_user.user_group == 1 ? 'List of Doctors' : 'My Patients', users_path %></li>
+                <li><%= link_to 'My Patients', users_path %></li>
             <% end %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">

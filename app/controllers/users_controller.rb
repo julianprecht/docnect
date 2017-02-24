@@ -87,7 +87,7 @@ class UsersController < ApplicationController
     if params && @user.update_attributes(params)
       flash[:info] = 'Profile successfully updated!'
       if @user.user_group == 0
-        redirect_to users_url
+        redirect_to users_path
       else
         redirect_to @user
       end
