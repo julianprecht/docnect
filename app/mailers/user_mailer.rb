@@ -5,7 +5,7 @@ class UserMailer < ApplicationMailer
     last = Question.find(user.questions_id)
 
     if last && last.terminal && last.question.blank?
-      while last.parent_id != 0 do
+      while last.parent_id do
         branch << last
         last = Question.find(last.parent_id)
       end
