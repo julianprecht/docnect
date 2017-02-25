@@ -5,7 +5,7 @@ class CreateQuestions < ActiveRecord::Migration[5.0]
       t.text :answer, default: ''
       t.text :question, default: ''
       t.boolean :terminal, default: false
-      t.text :diagnosis, default: "The patient's input was insufficient to give a successful diagnosis. More tests are needed."
+      t.text :diagnosis, default: ''
 
       t.timestamps
     end
