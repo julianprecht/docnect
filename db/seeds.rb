@@ -1,16 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-
-User.create!(email: 'admin@docnect.com', user_group: 0, name: 'Julian (Super User)', password: 'password', password_confirmation: 'password', activated: true, activated_at: Time.zone.now)
-User.create!(email: 'doctor@docnect.com', user_group: 2, name: 'Doc Marten', password: 'password', password_confirmation: 'password', activated: true, activated_at: Time.zone.now, specialization: 'General Practitioner', phone: '+44 7575 998998', address: 'University Hospital, Coventry, Warwickshire')
-User.create!(email: 'patient@docnect.com', user_group: 1, name: 'Alex Macpherson', password: 'password', password_confirmation: 'password', activated: true, activated_at: Time.zone.now, dob: 21.years.ago, nationality: 'English', marital_status: 'Single', occupation: 'Student', hobbies: 'Computer Science, building and testing Docnect!', languages: 'English', height: 185, weight: 70, allergies: 'None', smoke: 'No', alcohol: 'Yes #legend', tattoos: 'None', history: "Operation under general anaesthetic Spring '07", medication: 'None', drugs: false, illness: 'None')
-
 # Some tree branches have had structure changed, placing user input at sub-branch leaves to improve tracing through the tree
 # If terminal = true and question != '', branch leads to user input
 q1 = Question.create!(parent_id: 0, question: 'Please select the option which best describes your symptoms:')
@@ -98,3 +85,8 @@ q26 = Question.create!(parent: q17, answer: 'Shortness of breath, dizziness, fee
 #q27 = Question.create!(parent: q17-, answer: 'Sense of anxiety or uneasiness')
 
 q28 = Question.create!(parent: q17, answer: 'None of these', terminal: true)
+
+# Defined users last
+User.create!(email: 'admin@docnect.com', user_group: 0, name: 'Julian (Super User)', password: 'password', password_confirmation: 'password', activated: true, activated_at: Time.zone.now)
+User.create!(email: 'doctor@docnect.com', user_group: 2, name: 'Doc Marten', password: 'password', password_confirmation: 'password', activated: true, activated_at: Time.zone.now, specialization: 'General Practitioner', phone: '+44 7575 998998', address: 'University Hospital, Coventry, Warwickshire')
+User.create!(email: 'patient@docnect.com', user_group: 1, name: 'Alex Macpherson', password: 'password', password_confirmation: 'password', activated: true, activated_at: Time.zone.now, dob: 21.years.ago, nationality: 'English', marital_status: 'Single', occupation: 'Student', hobbies: 'Computer Science, building and testing Docnect!', languages: 'English', height: 185, weight: 70, allergies: 'None', smoke: 'No', alcohol: 'Yes #legend', tattoos: 'None', history: "Operation under general anaesthetic Spring '07", medication: 'None', drugs: false, illness: 'None')
