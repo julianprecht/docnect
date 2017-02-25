@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
+  include QuestionsHelper
 
   # Ensure user is logged in before accessing any pages within the site
   before_action :require_login

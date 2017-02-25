@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170224190709) do
+ActiveRecord::Schema.define(version: 20170225005135) do
 
   create_table "questions", force: :cascade do |t|
     t.integer  "parent_id"
-    t.text     "answer",     default: ""
-    t.text     "question",   default: ""
-    t.boolean  "terminal",   default: false
-    t.text     "diagnosis",  default: ""
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.text     "answer",       default: ""
+    t.text     "question",     default: ""
+    t.boolean  "terminal",     default: false
+    t.text     "diagnosis",    default: "The patient's input was insufficient to give a successful diagnosis. More tests are needed."
+    t.datetime "created_at",                                                                                                           null: false
+    t.datetime "updated_at",                                                                                                           null: false
+    t.boolean  "user_defined", default: false
     t.index ["parent_id"], name: "index_questions_on_parent_id"
   end
 

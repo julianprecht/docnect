@@ -115,6 +115,10 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
+  def send_new_patient_email(patient)
+    UserMailer.new_patient(self, patient).deliver_now
+  end
+
 private
 
   def downcase_email

@@ -28,4 +28,19 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match user.reset_token, mail.body.encoded
     assert_match CGI.escape(user.email), mail.body.encoded
   end
+
+  test 'new patient' do
+    doctor = users(:doctor)
+    patient = users(:patient)
+    patient.questions_id = 2
+    mail = UserMailer.new_patient(doctor, patient)
+
+    assert_equal "New Diagnosis From #{patient.name}", mail.subject
+    assert_equal [doctor.email], mail.to
+    assert_equal ['noreply@docnect.herokuapp.com'], mail.from
+
+    assert_match doctor.name, mail.body.encoded
+    assert_match patient.name, mail.body.encoded
+    assert_match 'Just a check up', mail.body.encoded
+  end
 end

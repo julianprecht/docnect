@@ -38,6 +38,8 @@ class UsersController < ApplicationController
       now = Time.zone.now
       @age = now.year - @user.dob.year - (@user.dob.to_time.change(:year => now.year) > now ? 1 : 0)
     end
+
+    @diagnosis = diagnosis_of(@user)
   end
 
   def new
@@ -128,7 +130,11 @@ private
 
   def deny_super
     @user = User.find(params[:id])
-    redirect_to edit_user_path(current_user) if current_user?(@user) && @user.user_group == 0
+    if current_user?(@user) && @user.user_group == 0
+      redirect_to edit_user_path(current_user)
+    elsif @user.user_group == 0
+      redirect_to current_user
+    end
   end
 
   def require_logout

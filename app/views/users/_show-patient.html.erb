@@ -39,7 +39,7 @@
   <div class="col-md-6">
     <h4 class="patient-title">Hobbies:</h4>
   </div>
-  <div class="col-md-6 patient-info"><%= @user.hobbies %></div>
+  <div class="col-md-6 patient-info"><%= simple_format(@user.hobbies) %></div>
 </div>
 
 
@@ -62,42 +62,42 @@
   <div class="col-md-6">
     <h4 class="patient-title">Known Allergies</h4>
   </div>
-  <div class="col-md-6 patient-info"><%= @user.allergies %></div>
+  <div class="col-md-6 patient-info"><%= simple_format(@user.allergies) %></div>
 </div>
 
 <div class="row">
   <div class="col-md-6">
     <h4 class="patient-title">Smoking History:</h4>
   </div>
-  <div class="col-md-6 patient-info"><%= @user.smoke %></div>
+  <div class="col-md-6 patient-info"><%= simple_format(@user.smoke) %></div>
 </div>
 
 <div class="row">
   <div class="col-md-6">
     <h4 class="patient-title">Alcohol History:</h4>
   </div>
-  <div class="col-md-6 patient-info"><%= @user.alcohol %></div>
+  <div class="col-md-6 patient-info"><%= simple_format(@user.alcohol) %></div>
 </div>
 
 <div class="row">
   <div class="col-md-6">
     <h4 class="patient-title">Current Tattoos (if any):</h4>
   </div>
-  <div class="col-md-6 patient-info"><%= @user.tattoos %></div>
+  <div class="col-md-6 patient-info"><%= simple_format(@user.tattoos) %></div>
 </div>
 
 <div class="row">
   <div class="col-md-6">
     <h4 class="patient-title">Medical History:</h4>
   </div>
-  <div class="col-md-6 patient-info"><%= @user.history %></div>
+  <div class="col-md-6 patient-info"><%= simple_format(@user.history) %></div>
 </div>
 
 <div class="row">
   <div class="col-md-6">
     <h4 class="patient-title">Current Medication:</h4>
   </div>
-  <div class="col-md-6 patient-info"><%= @user.medication %></div>
+  <div class="col-md-6 patient-info"><%= simple_format(@user.medication) %></div>
 </div>
 
 <div class="row">
@@ -117,5 +117,5 @@
   <div class="col-md-6">
     <h4 class="patient-title">Illnesses known to run in your family:</h4>
   </div>
-  <div class="col-md-6 patient-info"><%= @user.illness %></div>
+  <div class="col-md-6 patient-info"><%= simple_format(@user.illness) %></div>
 </div>

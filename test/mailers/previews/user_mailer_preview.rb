@@ -15,4 +15,12 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.password_reset(user)
   end
 
+  # Preview this email at http://localhost:3000/rails/mailers/user_mailer/new_patient
+  def new_patient
+    doctor = User.second
+    patient = User.third
+    patient.questions_id = 2
+    UserMailer.new_patient(doctor, patient)
+  end
+
 end

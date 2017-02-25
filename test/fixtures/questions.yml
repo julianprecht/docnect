@@ -2,3 +2,9 @@ question:
   id: 1
   parent_id: 0
   # Everything else default defined as "" (blank string)
+
+terminal:
+  id: 2
+  parent_id: 1
+  diagnosis: Just a check up
+  terminal: true

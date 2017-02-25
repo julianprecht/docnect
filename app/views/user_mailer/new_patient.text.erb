@@ -1,0 +1,12 @@
+Hi <%= @doctor.name %>,
+
+<%= @patient.name %> has just been diagnosed and is requesting your help!
+
+<%= @diagnosis.last.diagnosis %>
+
+To view their full profile and diagnosis report, navigate to the URL below.
+
+<%= user_url(@patient) %>
+
+Thanks,
+The Docnect Team
