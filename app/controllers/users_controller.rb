@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include ActionView::Helpers::TextHelper
+
   # Catch user record not found exception
   rescue_from ActiveRecord::RecordNotFound, :with => :user_not_found
   def user_not_found
@@ -15,6 +17,7 @@ class UsersController < ApplicationController
   before_action :require_logout, only: [:new, :create]
   before_action :require_correct_user, only: [:edit, :update, :destroy]
   before_action :deny_super, only: [:show]
+  before_action :require_super, only: [:destroy_inactive]
 
   def index
     case current_user.user_group
@@ -109,6 +112,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy_inactive
+    @inactive = User.all.where(activated: false)
+    count = @inactive.count
+    @inactive.each do |inactive|
+      inactive.destroy
+    end
+    if count > 0
+      flash[:info] = "#{pluralize(count, 'inactive account')} successfully deleted."
+    else
+      flash[:info] = 'No inactive accounts exist to be deleted.'
+    end
+    redirect_to users_url
+  end
+
 private
 
   def user_params
@@ -141,5 +158,9 @@ private
     if logged_in? && current_user.user_group != 0
       redirect_to current_user
     end
+  end
+
+  def require_super
+    redirect_to current_user unless current_user.user_group == 0
   end
 end

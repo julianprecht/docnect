@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post '/test' => 'questions#update'
   get '/test/input' => 'questions#new'
   post '/test/input' => 'questions#create'
+  delete '/inactive' => 'users#destroy_inactive'
 
   resources :users
   resources :account_activations, only: [:edit]

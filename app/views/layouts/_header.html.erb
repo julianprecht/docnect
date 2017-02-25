@@ -1,12 +1,24 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to 'Docnect', root_path, id: 'logo' %>
+    <%= link_to raw('<span class="glyphicon glyphicon-remove-circle" style="transform: rotate(45deg); font-size: 23px;"></span> Docnect'), root_path, id: 'logo' %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
             <% if current_user.user_group == 0 %>
-                <li><%= link_to 'List of Users', users_path %></li>
-                <li><%= link_to 'Add New User', new_user_path %></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    User Actions <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li class="center"><%= link_to 'View All Users', users_path %></li>
+                    <li class="center"><%= link_to 'Add New Doctor', new_user_path %></li>
+                    <li class="divider"></li>
+                    <li class="center">
+                      <%= link_to 'Delete Inactive Accounts', inactive_path, method: :delete, data: {
+                          confirm: 'This action cannot be undone. Are you sure you wish to delete all inactive accounts from Docnect?' } %>
+                    </li>
+                  </ul>
+                </li>
             <% elsif current_user.user_group == 1 %>
                 <% if current_user.questions_id == 1 %>
                     <li><%= link_to 'Diagnostic Test', test_path %></li>

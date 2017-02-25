@@ -1,6 +1,5 @@
 question:
   id: 1
-  parent_id: 0
   # Everything else default defined as "" (blank string)
 
 terminal:
