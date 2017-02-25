@@ -3,8 +3,8 @@ module QuestionsHelper
     branch = []
     last = Question.find(user.questions_id)
     
-    if last&.terminal && last.question.blank?
-      while last.parent_id != 0 do
+    if last && last.terminal && last.question.blank?
+      while last.parent_id do
         branch << last
         last = Question.find(last.parent_id)
       end

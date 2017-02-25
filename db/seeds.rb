@@ -1,6 +1,6 @@
 # Some tree branches have had structure changed, placing user input at sub-branch leaves to improve tracing through the tree
 # If terminal = true and question != '', branch leads to user input
-q1 = Question.create!(parent_id: 0, question: 'Please select the option which best describes your symptoms:')
+q1 = Question.create!(parent_id: nil, question: 'Please select the option which best describes your symptoms:')
 
 q2 = Question.create!(parent: q1, answer: 'Just a check up', terminal: true, diagnosis: 'The patient simply wants a check up.')
 
