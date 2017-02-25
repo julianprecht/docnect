@@ -1,22 +1,13 @@
 <% provide(:title, @user.name) %>
 <h1><%= @user.name %></h1>
 
-<% if @user.user_group == 1 %>
+<% if @user.group?(1) %>
     <%= render 'show-patient' %>
-<% elsif @user.user_group == 2 %>
+<% elsif @user.group?(2) %>
     <%= render 'show-doctor' %>
 <% end %>
 
-<% if current_user.user_group == 1 && @user.last_test %>
-    <div class="row">
-      <div class="col-md-6">
-        <h4 class="patient-title">Last Diagnostic Test Completed:</h4>
-      </div>
-      <div class="col-md-6 patient-info"><%= time_ago_in_words(@user.last_test) %> ago</div>
-    </div>
-<% else %>
-    <%= render 'show-diagnosis' %>
-<% end %>
+<%= render 'show-diagnosis' %>
 
 <% if current_user?(@user) %>
     <div class="row">

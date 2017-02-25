@@ -14,8 +14,8 @@ class SessionsController < ApplicationController
         login @user
         params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
         flash[:info] = "Hi #{@user.name}, welcome back to Docnect!"
-        if @user.user_group == 0
-          redirect_back_or signup_url
+        if @user.group?(0)
+          redirect_back_or new_user_path
         else
           redirect_back_or @user
         end

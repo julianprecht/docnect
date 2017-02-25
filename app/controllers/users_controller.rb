@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   before_action :require_logout, only: [:new, :create]
   before_action :require_correct_user, only: [:edit, :update, :destroy]
   before_action :deny_super, only: [:show]
+  before_action :permit_user_group, only: [:show]
   before_action :require_super, only: [:destroy_inactive]
 
   def index
@@ -81,17 +82,17 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     params = nil
-    if @user.user_group == 0
+    if @user.group?(0)
       params = user_params
-    elsif @user.user_group == 1
+    elsif @user.group?(1)
       params = patient_params
-    elsif @user.user_group == 2
+    elsif @user.group?(2)
       params = doctor_params
     end
 
     if params && @user.update_attributes(params)
       flash[:info] = 'Profile successfully updated!'
-      if @user.user_group == 0
+      if @user.group?(0)
         redirect_to users_path
       else
         redirect_to @user
@@ -142,25 +143,32 @@ private
 
   def require_correct_user
     @user = User.find(params[:id])
-    redirect_to current_user unless current_user?(@user) || current_user.user_group == 0
+    redirect_to current_user unless current_user?(@user) || current_user.group?(0)
   end
 
   def deny_super
     @user = User.find(params[:id])
-    if current_user?(@user) && @user.user_group == 0
+    if current_user?(@user) && @user.group?(0)
       redirect_to edit_user_path(current_user)
-    elsif @user.user_group == 0
+    elsif @user.group?(0)
       redirect_to current_user
     end
   end
 
   def require_logout
-    if logged_in? && current_user.user_group != 0
+    if logged_in? && !current_user.group?(0)
       redirect_to current_user
     end
   end
 
   def require_super
-    redirect_to current_user unless current_user.user_group == 0
+    redirect_to current_user unless current_user.group?(0)
+  end
+
+  def permit_user_group
+    @user =  User.find(params[:id])
+    unless current_user.group?(0) || current_user?(@user) || (@user.group?(2) && current_user.group?(1)) || (@user.group?(1) && current_user.group?(2))
+      redirect_to current_user
+    end
   end
 end

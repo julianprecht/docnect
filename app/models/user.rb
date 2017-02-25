@@ -119,6 +119,11 @@ class User < ApplicationRecord
     UserMailer.new_patient(self, patient).deliver_now
   end
 
+  # Returns true if user has given user group
+  def group?(group)
+    user_group == group
+  end
+
 private
 
   def downcase_email
@@ -126,11 +131,11 @@ private
   end
 
   def is_doctor?
-    activated && user_group == 2 && !reset_digest
+    activated && group?(2) && !reset_digest
   end
 
   def is_patient?
-    activated && user_group == 1 && !reset_digest
+    activated && group?(1) && !reset_digest
   end
 
   def create_activation_digest

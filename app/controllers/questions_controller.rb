@@ -87,7 +87,7 @@ private
   end
 
   def require_patient
-    if current_user.user_group != 1
+    unless current_user.group?(1)
       redirect_to current_user
     end
   end
