@@ -13,4 +13,12 @@ module QuestionsHelper
 
     branch.reverse
   end
+
+  def count_patients
+    count = Appointment.all.where(doctor_id: current_user.id).length
+    if count == 0
+      count = 'none'
+    end
+    count
+  end
 end
