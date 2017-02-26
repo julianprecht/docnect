@@ -82,7 +82,7 @@ class QuestionsController < ApplicationController
   end
 
   def appointment
-    @doctors = User.all.where(activated: true, user_group: 2).where.not(specialization: nil, phone: nil, address: nil)
+    @doctors = User.all.where(activated: true, user_group: 2).where.not(specialization: nil, phone: nil, address: nil).order(:name)
     @doctors.each do |doctor|
       doctor.name += ' | ' + doctor.specialization + ' | ' + doctor.address
     end

@@ -5,6 +5,7 @@
   <div class="col-md-8 col-md-offset-2">
     <%= form_tag(url: test_appointment_path) do %>
         <%= select_tag 'doctor_ids[]', options_from_collection_for_select(@doctors, :id, :name, {:selected => @doctors.first}), { class: 'form-control', :multiple => true, :size => @doctors.count > 15 ? 15 : @doctors.count, :id => 'doctor_ids' } %>
+        <%= text_field_tag 'search_doctors', '', class: 'form-control', placeholder: 'Search for doctor by name, specialization or address' %>
 
         <%= submit_tag 'Send Diagnosis', class: 'btn btn-primary' %>
     <% end %>

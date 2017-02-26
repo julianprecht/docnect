@@ -41,5 +41,10 @@
       </div>
     </div>
 <% else %>
-    <h3>No <%= current_user.group?(1) ? 'doctors' : 'patients' %> could be found at this time.</h3>
+    <h2>No <%= if current_user.group?(1)
+                 'doctors'
+               else
+                 current_user.group?(2) ? 'patients' : 'users'
+               end %> could be found at this time.</h2>
 <% end %>
+<h3><%= @search %></h3>

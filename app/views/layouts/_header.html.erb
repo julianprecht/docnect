@@ -56,6 +56,11 @@
                 <li class="center"><%= link_to 'Logout', logout_path, method: :delete %></li>
               </ul>
             </li>
+            <li class="search">
+              <%= form_tag users_path, :method => 'get' do %>
+                  <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: search_placeholder %>
+              <% end %>
+            </li>
         <% else %>
             <li><%= link_to 'Home', root_path %></li>
             <li><%= link_to 'About', about_path %></li>

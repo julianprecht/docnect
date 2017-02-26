@@ -201,3 +201,27 @@ input[type=date].form-control {
   }
 }
 
+.nav >li:hover {
+  background: #111;
+}
+
+.nav .search {
+  padding-top: 7px;
+  padding-left: 10px;
+
+  &:hover {
+    background: none;
+  }
+
+  .form-control {
+    margin-bottom: 0;
+    background: #333;
+    border: 1px solid #444;
+    color: #eee;
+  }
+
+  .form-control:focus {
+    background: #444;
+  }
+}
+

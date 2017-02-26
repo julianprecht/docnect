@@ -8,4 +8,15 @@ module ApplicationHelper
       page_title + ' | ' + base_title
     end
   end
+
+  def search_placeholder
+    case current_user.user_group
+      when 1
+        'Search Doctors'
+      when 2
+        'Search Patients'
+      else
+        'Search Users'
+    end
+  end
 end
