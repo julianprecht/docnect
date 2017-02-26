@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     case current_user.user_group
       when 0
         if params.has_key?(:search) && !params[:search].strip.blank?
-          @users = User.all.where('name LIKE ? OR address LIKE ? OR email LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%").order(:id).paginate(page: params[:page], :per_page => 15)
+          @users = User.all.where('LOWER(name) LIKE LOWER(?) OR LOWER(address) LIKE LOWER(?) OR LOWER(email) LIKE LOWER(?)', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%").order(:id).paginate(page: params[:page], :per_page => 15)
           @title = "Showing Users Matching \"#{params[:search]}\""
         else
           @users = User.all.order(:id).paginate(page: params[:page], :per_page => 15)
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
       when 2
         @appointments = Appointment.where(doctor_id: current_user.id)
         if params.has_key?(:search) && !params[:search].strip.blank?
-          @users = User.all.where(id: @appointments.map(&:patient_id)).where('name LIKE ?', "%#{params[:search]}%").order(last_test: :desc).paginate(page: params[:page], :per_page => 15)
+          @users = User.all.where(id: @appointments.map(&:patient_id)).where('LOWER(name) LIKE LOWER(?)', "%#{params[:search]}%").order(last_test: :desc).paginate(page: params[:page], :per_page => 15)
           @title = "Showing Patients Matching \"#{params[:search]}\""
         else
           @users = User.all.where(id: @appointments.map(&:patient_id)).order(last_test: :desc).paginate(page: params[:page], :per_page => 15)
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
       else
         if params.has_key?(:search) && !params[:search].strip.blank?
-          @users = User.all.where(user_group: 2, activated: true).where.not(specialization: nil, phone: nil, address: nil).where('name LIKE ? OR specialization LIKE ? OR address LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%").paginate(page: params[:page], :per_page => 15)
+          @users = User.all.where(user_group: 2, activated: true).where.not(specialization: nil, phone: nil, address: nil).where('LOWER(name) LIKE LOWER(?) OR LOWER(specialization) LIKE LOWER(?) OR LOWER(address) LIKE LOWER(?)', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%").paginate(page: params[:page], :per_page => 15)
           @title = "Showing Doctors Matching \"#{params[:search]}\""
         else
           @users = User.all.where(user_group: 2, activated: true).where.not(specialization: nil, phone: nil, address: nil).paginate(page: params[:page], :per_page => 15)
