@@ -28,7 +28,7 @@
                         Diagnostic Test <b class="caret"></b>
                       </a>
                       <ul class="dropdown-menu">
-                        <% if Question.find(current_user.questions_id).question == '' %>
+                        <% if current_user.test_complete %>
                             <li class="center last-test">Last diagnostic test: <%= time_ago_in_words(current_user.last_test) %> ago</li>
                         <% else %>
                             <li class="center"><%= link_to 'Continue Test', test_path %></li>

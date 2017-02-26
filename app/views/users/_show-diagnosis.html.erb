@@ -1,4 +1,4 @@
-<% if !@diagnosis.blank?  %>
+<% if @user.test_complete && @user.group?(1)  %>
     <h3 class="show-section">Docnect Diagnostic Test:</h3>
     <div class="row">
       <h4 class="patient-title">
@@ -8,6 +8,16 @@
         <%= current_user.group?(1) ? raw(time_ago_in_words(@user.last_test) + ' ago - ' + link_to('click here', test_path(answer_id: 1), method: :post) + ' to begin a new test') : simple_format(@diagnosis.last.diagnosis == "The patient's symptoms did not match any listed by Docnect:" ? @diagnosis.last.diagnosis + "\n\n" + @diagnosis.last.answer : @diagnosis.last.diagnosis) %>
       </div>
     </div>
+    <% unless current_user.group?(2) %>
+        <div class="row">
+          <h4 class="patient-title">Doctors Assigned:</h4>
+          <div class="patient-info doctor-name">
+            <% @doctors.each do |doctor| %>
+                <p><%= link_to doctor.name, doctor %>&nbsp;&nbsp;|&nbsp;&nbsp;<%= doctor.specialization %></p>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
 
     <h3 class="show-section"><%= current_user.group?(1) ? 'Your' : 'Patient' %> Answers:</h3>
     <% @diagnosis.each do |diagnosis| %>
@@ -31,7 +41,7 @@
       <h4 class="patient-title">Last Diagnostic Test Completed:</h4>
       <div class="patient-info"><%= time_ago_in_words(@user.last_test) %> ago</div>
     </div>
-    <% if @diagnosis.blank? %>
+    <% unless current_user.test_complete %>
         <div class="row">
           <h4 class="patient-title">Current Test:</h4>
           <div class="patient-info">Incomplete

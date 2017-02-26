@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   post '/test' => 'questions#update'
   get '/test/input' => 'questions#new'
   post '/test/input' => 'questions#create'
+  get '/test/appointment' => 'questions#appointment'
+  post '/test/appointment' => 'questions#appoint'
   delete '/inactive' => 'users#destroy_inactive'
 
   resources :users

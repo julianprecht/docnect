@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170226014203) do
+ActiveRecord::Schema.define(version: 20170226043011) do
+
+  create_table "appointments", force: :cascade do |t|
+    t.integer  "doctor_id"
+    t.integer  "patient_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["doctor_id", "patient_id"], name: "index_appointments_on_doctor_id_and_patient_id", unique: true
+    t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
+    t.index ["patient_id"], name: "index_appointments_on_patient_id"
+  end
 
   create_table "questions", force: :cascade do |t|
     t.integer  "parent_id"
@@ -60,6 +70,7 @@ ActiveRecord::Schema.define(version: 20170226014203) do
     t.integer  "questions_id",      default: 1
     t.datetime "last_test"
     t.datetime "last_online"
+    t.boolean  "test_complete",     default: false
     t.index ["questions_id"], name: "index_users_on_questions_id"
   end
 

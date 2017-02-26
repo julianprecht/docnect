@@ -2,7 +2,7 @@
 
 <p><%= @patient.name %> has just been diagnosed and is requesting your help!</p>
 
-<p><%= simple_format(@diagnosis.last.diagnosis) %></p>
+<%= simple_format(@diagnosis.last.diagnosis) %>
 
 <p>To view their full profile and diagnosis report, <%= link_to 'click here', @patient %>.</p>
 

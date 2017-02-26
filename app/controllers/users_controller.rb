@@ -23,14 +23,14 @@ class UsersController < ApplicationController
   def index
     case current_user.user_group
       when 0
-        @users = User.all.order(:id).paginate(page: params[:page], :per_page => 20)
+        @users = User.all.order(:id).paginate(page: params[:page], :per_page => 15)
         @title = 'All Users'
       when 2
-        # Change to only include patients of current doctor, order by last_test (newest first)
-        @users = User.all.where(user_group: 1, activated: true).order(last_test: :desc).paginate(page: params[:page], :per_page => 20)
+        @appointments = Appointment.where(doctor_id: current_user.id)
+        @users = User.all.where(id: @appointments.map(&:patient_id)).order(last_test: :desc).paginate(page: params[:page], :per_page => 15)
         @title = 'Your Patients'
       else
-        @users = User.all.where(user_group: 2, activated: true).paginate(page: params[:page], :per_page => 20)
+        @users = User.all.where(user_group: 2, activated: true).where.not(specialization: nil, phone: nil, address: nil).paginate(page: params[:page], :per_page => 15)
         @title = 'Browse Doctors'
     end
   end
@@ -44,6 +44,12 @@ class UsersController < ApplicationController
     end
 
     @diagnosis = diagnosis_of(@user)
+
+    @doctors = []
+    @appointments = Appointment.all.where(patient_id: current_user.id)
+    @appointments.each do |appointment|
+      @doctors << User.find(appointment.doctor_id)
+    end
   end
 
   def new
@@ -170,7 +176,7 @@ private
 
   def permit_user_group
     @user =  User.find(params[:id])
-    unless current_user.group?(0) || current_user?(@user) || (@user.group?(2) && current_user.group?(1)) || (@user.group?(1) && current_user.group?(2))
+    unless current_user.group?(0) || current_user?(@user) || (@user.group?(2) && current_user.group?(1)) || (current_user.group?(2) && Appointment.find_by(patient_id: @user.id))
       redirect_to current_user
     end
   end

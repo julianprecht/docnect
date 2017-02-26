@@ -8,20 +8,15 @@ class QuestionsController < ApplicationController
   end
 
   before_action :require_patient
-  # Ensure users cannot input unless their current question requires
+  before_action :require_incomplete, only: [:test, :new, :create, :appointment, :appoint]
   before_action :require_user_input, only: [:new]
-  before_action :check_user_input, only: [:test]
+  before_action :require_test_question, only: [:test]
+  before_action :require_appointment, only: [:appointment]
 
   # Show current question and all answers
   def test
     @question = Question.find(current_user.questions_id)
     @answers = Question.all.where(parent_id: current_user.questions_id)
-
-    # If test is already complete, redirect to user page
-    if @question.terminal
-      flash[:warning] = "Your last test was completed #{time_ago_in_words(current_user.last_test)} ago. To start another one, click 'Begin New Test' under 'Diagnostic Test'."
-      redirect_to current_user
-    end
   end
 
   # Post update to user question record
@@ -37,14 +32,22 @@ class QuestionsController < ApplicationController
       return
     end
 
+    # Reset test completion flag
+    if @user.test_complete
+      @user.update_attribute(:test_complete, false)
+
+      @appointments = Appointment.all.where(patient_id: @user.id)
+      @appointments.each do |appointment|
+        appointment.destroy
+      end
+    end
+
     if @answer.terminal && @answer.question != ''
       # Test requires user input at end of branch
       redirect_to test_input_path
     elsif @answer.terminal
-      # End of test
-      @user.update_column(:last_test, Time.zone.now)
-      flash[:success] = 'Thanks for completing the test.'
-      redirect_to current_user
+      # End of test, appoint doctor(s)
+      redirect_to test_appointment_path
     else
       # Continue test
       redirect_to test_path
@@ -71,12 +74,52 @@ class QuestionsController < ApplicationController
     @answer.user_defined = true
 
     if @answer.save && current_user.update_column(:questions_id, @answer.id)
-      # End of test
-      current_user.update_column(:last_test, Time.zone.now)
-      flash[:success] = 'Thanks for completing the test.'
-      redirect_to current_user
+      # End of test, appoint doctor(s)
+      redirect_to test_appointment_path
     else
       render 'new'
+    end
+  end
+
+  def appointment
+    @doctors = User.all.where(activated: true, user_group: 2).where.not(specialization: nil, phone: nil, address: nil)
+    @doctors.each do |doctor|
+      doctor.name += ' | ' + doctor.specialization + ' | ' + doctor.address
+    end
+  end
+
+  def appoint
+    @user = current_user
+    @doctors = User.all.where(activated: true, user_group: 2).where.not(specialization: nil, phone: nil, address: nil)
+    @doctors.each do |doctor|
+      doctor.name += ' | ' + doctor.specialization + ' | ' + doctor.address
+    end
+
+    @doctor_ids = params[:doctor_ids]
+    if !@doctor_ids
+      flash.now[:danger] = 'Please select at least one doctor.'
+      render 'appointment'
+    else
+      @doctor_ids.each do |doctor_id|
+        doctor = User.all.where(id: doctor_id).first
+
+        appointment = nil
+        appointment = Appointment.new(doctor: doctor, patient: @user) if doctor
+
+        if appointment && appointment.save
+          @user.update_attribute(:test_complete, true)
+          UserMailer.new_patient(doctor, @user).deliver_now
+        end
+      end
+
+      if @user.test_complete
+        @user.update_column(:last_test, Time.zone.now)
+        flash[:success] = 'Thanks for completing the diagnosis test.'
+        redirect_to @user
+      else
+        flash.now[:danger] = 'Something went wrong, please try again.'
+        render 'appointment'
+      end
     end
   end
 
@@ -94,15 +137,46 @@ private
 
   def require_user_input
     @question = Question.find(current_user.questions_id)
-    unless @question.terminal && @question.question != ''
+
+    if @question.terminal && @question.question.blank?
+      # If question is terminal and question field is blank, end of test
+      redirect_to test_appointment_path
+    elsif !@question.terminal
+      # If question is not terminal show current question
       redirect_to test_path
     end
   end
 
-  def check_user_input
+  def require_test_question
     @question = Question.find(current_user.questions_id)
-    if @question.terminal && @question.question != ''
+
+    if @question.terminal
+      # If the current question is terminal but has a question, redirect to user input
+      if !@question.question.blank?
+        redirect_to test_input_path
+      # Otherwise, end of test: go to appointment
+      else
+        redirect_to test_appointment_path
+      end
+    end
+  end
+
+  def require_appointment
+    @question = Question.find(current_user.questions_id)
+
+    if @question.terminal && !@question.question.blank?
+      # If the question is terminal but not blank, redirect to user input
       redirect_to test_input_path
+    elsif !@question.terminal
+      # Otherwise, show the current question
+      redirect_to test_path
+    end
+  end
+
+  def require_incomplete
+    if current_user.test_complete
+      flash[:warning] = "Your last test was completed #{time_ago_in_words(current_user.last_test)} ago. To start another one, click 'Begin New Test' under 'Diagnostic Test'."
+      redirect_to current_user
     end
   end
 end

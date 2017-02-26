@@ -24,12 +24,8 @@
                 (<%= user.email %>)
                 &nbsp;| &nbsp;Super User
             <% elsif current_user.group?(1) %>
-                <% if user.valid? %>
-                    &nbsp;| &nbsp;<%= user.specialization %>
-                    &nbsp;| &nbsp;<%= user.address %>
-                <% else %>
-                    &nbsp;| &nbsp;This doctor hasn't finished setting up their account yet...
-                <% end %>
+                &nbsp;| &nbsp;<%= user.specialization %>
+                &nbsp;| &nbsp;<%= user.address %>
             <% elsif current_user.group?(2) && user.last_test %>
                 &nbsp;| &nbsp;Last diagnosed <%= time_ago_in_words(user.last_test) %> ago
             <% end %>

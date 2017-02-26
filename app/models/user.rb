@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :doctors, :class_name => 'Appointment', :foreign_key => 'doctor_id', dependent: :destroy
+  has_many :patients, :class_name => 'Appointment', :foreign_key => 'pupil_id', dependent: :destroy
+
   # Remove whitespace
   auto_strip_attributes :email, :name, :specialization, :phone, :occupation, :nationality, :languages, :squish => true
   auto_strip_attributes :address, :bio, :hobbies, :allergies, :smoke, :alcohol, :tattoos, :history, :medication, :illness
@@ -141,10 +144,12 @@ private
       addr = ''
       address.each_line do |line|
         unless line.blank?
+          line.gsub!(/(^[ ]+)|([ ]+$)/, '')
+          line.gsub!(/([ ]*\r$)/, "\r")
           if /,\r$/.match(line)
-            addr += line.gsub(/(^[ ]+)|([ ]+$)/, '')
+            addr += line.gsub(/(^[ ]+)|([ ]+$)/, '').gsub(/([ ]*,\r$)/, ",\r")
           else
-            addr += line.gsub(/(^[ ]+)/, '').gsub(/[ ]+\r/, ',')
+            addr += line.gsub(/(^[ ]+)/, '').gsub(/[ ]*\r/, ",\r")
           end
         end
       end
