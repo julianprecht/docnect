@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     @diagnosis = diagnosis_of(@user)
 
     @doctors = []
-    @appointments = Appointment.all.where(patient_id: current_user.id)
+    @appointments = Appointment.all.where(patient_id: @user.id)
     @appointments.each do |appointment|
       @doctors << User.find(appointment.doctor_id)
     end
