@@ -1,110 +1,79 @@
-
 <h3 class="show-section">Personal Information:</h3>
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Date of Birth:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= @user.dob.strftime('%d/%m/%Y') %> (<%= @age %> years old)</div>
+  <h4 class="patient-title">Date of Birth:</h4>
+  <div class="patient-info"><%= @user.dob.strftime('%d/%m/%Y') %> (<%= @age %> years old)</div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Nationality/nationalities:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= @user.nationality %></div>
+  <h4 class="patient-title">Nationality/nationalities:</h4>
+  <div class="patient-info"><%= @user.nationality %></div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Spoken Languages:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= @user.languages %></div>
+  <h4 class="patient-title">Spoken Languages:</h4>
+  <div class="patient-info"><%= @user.languages %></div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Marital Status:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= @user.marital_status %></div>
+  <h4 class="patient-title">Marital Status:</h4>
+  <div class="patient-info"><%= @user.marital_status %></div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Occupation:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= @user.occupation %></div>
+  <h4 class="patient-title">Occupation:</h4>
+  <div class="patient-info"><%= @user.occupation %></div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Hobbies:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= simple_format(@user.hobbies) %></div>
+  <h4 class="patient-title">Hobbies:</h4>
+  <div class="patient-info"><%= simple_format(@user.hobbies) %></div>
 </div>
 
 
 <h3 class="show-section">Medical Information:</h3>
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Height (cm):</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= @user.height %> cm</div>
+  <h4 class="patient-title">Height (cm):</h4>
+  <div class="patient-info"><%= @user.height %> cm</div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Weight (kg):</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= @user.weight %> kg</div>
+  <h4 class="patient-title">Weight (kg):</h4>
+  <div class="patient-info"><%= @user.weight %> kg</div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Known Allergies</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= simple_format(@user.allergies) %></div>
+  <h4 class="patient-title">Known Allergies</h4>
+  <div class="patient-info"><%= simple_format(@user.allergies) %></div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Smoking History:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= simple_format(@user.smoke) %></div>
+  <h4 class="patient-title">Smoking History:</h4>
+  <div class="patient-info"><%= simple_format(@user.smoke) %></div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Alcohol History:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= simple_format(@user.alcohol) %></div>
+  <h4 class="patient-title">Alcohol History:</h4>
+  <div class="patient-info"><%= simple_format(@user.alcohol) %></div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Current Tattoos (if any):</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= simple_format(@user.tattoos) %></div>
+  <h4 class="patient-title">Current Tattoos (if any):</h4>
+  <div class="patient-info"><%= simple_format(@user.tattoos) %></div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Medical History:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= simple_format(@user.history) %></div>
+  <h4 class="patient-title">Medical History:</h4>
+  <div class="patient-info"><%= simple_format(@user.history) %></div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Current Medication:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= simple_format(@user.medication) %></div>
+  <h4 class="patient-title">Current Medication:</h4>
+  <div class="patient-info"><%= simple_format(@user.medication) %></div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Illegal Drug Usage:</h4>
-  </div>
-  <div class="col-md-6 patient-info">
+  <h4 class="patient-title">Illegal Drug Usage:</h4>
+  <div class="patient-info">
     <% if @user.drugs %>
         You do make use of illegal drugs.
     <% else %>
@@ -114,8 +83,6 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Illnesses known to run in your family:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= simple_format(@user.illness) %></div>
+  <h4 class="patient-title">Illnesses known to run in your family:</h4>
+  <div class="patient-info"><%= simple_format(@user.illness) %></div>
 </div>

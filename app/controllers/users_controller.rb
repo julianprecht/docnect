@@ -23,15 +23,15 @@ class UsersController < ApplicationController
   def index
     case current_user.user_group
       when 0
-        @users = User.all.where(activated: true).paginate(page: params[:page], :per_page => 20)
+        @users = User.all.order(:id).paginate(page: params[:page], :per_page => 20)
         @title = 'All Users'
       when 2
-        # Change to only include patients of current doctor
-        @users = User.all.where(user_group: 1, activated: true).paginate(page: params[:page], :per_page => 20)
+        # Change to only include patients of current doctor, order by last_test (newest first)
+        @users = User.all.where(user_group: 1, activated: true).order(last_test: :desc).paginate(page: params[:page], :per_page => 20)
         @title = 'Your Patients'
       else
         @users = User.all.where(user_group: 2, activated: true).paginate(page: params[:page], :per_page => 20)
-        @title = 'All Doctors'
+        @title = 'Browse Doctors'
     end
   end
 
@@ -58,6 +58,8 @@ class UsersController < ApplicationController
       @user.password = random
       @user.password_confirmation = random
       @user.user_group = 2
+    else
+      @user.last_online = Time.zone.now
     end
 
     if @user.save
@@ -115,6 +117,7 @@ class UsersController < ApplicationController
 
   def destroy_inactive
     @inactive = User.all.where(activated: false)
+
     count = @inactive.count
     @inactive.each do |inactive|
       inactive.destroy

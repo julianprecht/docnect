@@ -1,29 +1,21 @@
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Medical Specialization:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= @user.specialization %></div>
+  <h4 class="patient-title">Medical Specialization:</h4>
+  <div class="patient-info"><%= @user.specialization %></div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Phone Number:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= @user.phone %></div>
+  <h4 class="patient-title">Phone Number:</h4>
+  <div class="patient-info"><%= @user.phone %></div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <h4 class="patient-title">Surgery Address:</h4>
-  </div>
-  <div class="col-md-6 patient-info"><%= simple_format(@user.address) %></div>
+  <h4 class="patient-title">Surgery Address:</h4>
+  <div class="patient-info"><%= simple_format(@user.address) %></div>
 </div>
 
 <% if @user.bio %>
     <div class="row">
-      <div class="col-md-6">
-        <h4 class="patient-title">Personal Bio:</h4>
-      </div>
-      <div class="col-md-6 patient-info"><%= simple_format(@user.bio) %></div>
+      <h4 class="patient-title">Personal Bio:</h4>
+      <div class="patient-info"><%= simple_format(@user.bio) %></div>
     </div>
 <% end %>

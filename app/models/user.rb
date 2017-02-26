@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   # Downcase email address before saving the user
   before_save :downcase_email
+  before_save :titlize_name
+  before_save :cleanse_address
   before_create :create_activation_digest
 
   # Global user record validation
@@ -128,6 +130,26 @@ private
 
   def downcase_email
     email.downcase!
+  end
+
+  def titlize_name
+    self.name = name.titleize
+  end
+
+  def cleanse_address
+    if address && is_doctor?
+      addr = ''
+      address.each_line do |line|
+        unless line.blank?
+          if /,\r$/.match(line)
+            addr += line.gsub(/(^[ ]+)|([ ]+$)/, '')
+          else
+            addr += line.gsub(/(^[ ]+)/, '').gsub(/[ ]+\r/, ',')
+          end
+        end
+      end
+      self.address = addr
+    end
   end
 
   def is_doctor?

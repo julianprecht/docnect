@@ -1,9 +1,11 @@
 module SessionsHelper
   def login(user)
+    user.update_attribute(:last_online, Time.zone.now)
     session[:user_id] = user.id
   end
 
   def logout
+    current_user.update_attribute(:last_online, Time.zone.now)
     forget(current_user)
     session.delete(:user_id)
     @current_user = nil

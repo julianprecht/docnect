@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170225005135) do
+ActiveRecord::Schema.define(version: 20170226014203) do
 
   create_table "questions", force: :cascade do |t|
     t.integer  "parent_id"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20170225005135) do
     t.datetime "reset_sent_at"
     t.integer  "questions_id",      default: 1
     t.datetime "last_test"
+    t.datetime "last_online"
     t.index ["questions_id"], name: "index_users_on_questions_id"
   end
 
