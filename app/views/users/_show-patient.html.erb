@@ -75,9 +75,9 @@
   <h4 class="patient-title">Illegal Drug Usage:</h4>
   <div class="patient-info">
     <% if @user.drugs %>
-        You do make use of illegal drugs.
+        <%= current_user?(@user) ? 'You do' : @user.name + ' does' %> make use of illegal drugs.
     <% else %>
-        You do not make use of illegal drugs.
+        <%= current_user?(@user) ? 'You do' : @user.name + ' does' %> not make use of illegal drugs.
     <% end %>
   </div>
 </div>
