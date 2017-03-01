@@ -16,7 +16,7 @@
                     <% elsif !user.activated %>
                         &nbsp;- &nbsp;(not activated, created <%= time_ago_in_words(user.created_at) %> ago)
                     <% end %>
-                    <% if user.last_online %>
+                    <% if user.last_online && user.activated %>
                         &nbsp;| &nbsp;Last online <%= time_ago_in_words(user.last_online) %> ago
                     <% end %>
                     &nbsp;| &nbsp;<%= link_to 'Delete User', user, method: :delete,
