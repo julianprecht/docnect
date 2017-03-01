@@ -48,4 +48,4 @@ ready = ->
     return (e) ->
       return $(e).text().toUpperCase().indexOf(text.toUpperCase()) >= 0
 
-$(document).on 'ready page:load turbolinks:load', ready
+$(document).on 'turbolinks:load', ready

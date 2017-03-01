@@ -8,5 +8,9 @@ To view their full profile and diagnosis report, navigate to the URL below.
 
 <%= user_url(@patient) %>
 
+Alternatively, download the diagnosis report as a PDF from the URL below.
+
+<%= user_url(@patient.id, download: true, format: 'pdf') %>
+
 Thanks,
 The Docnect Team

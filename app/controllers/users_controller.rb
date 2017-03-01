@@ -71,6 +71,26 @@ class UsersController < ApplicationController
     @appointments.each do |appointment|
       @doctors << User.find(appointment.doctor_id)
     end
+
+    # Allow PDF profile generation
+    respond_to do |format|
+      format.html
+      format.pdf do
+        # Unable to generate PDF unless user is patient and has diagnosis
+        unless @user.group?(1) && !diagnosis_of(@user).blank?
+          redirect_to @user
+          return
+        end
+
+        pdf = ReportPdf.new(@user, @age, @diagnosis, @doctors)
+        name = @user.name.downcase.gsub(/[ ]/, '-')
+        if params.has_key?(:download) && params[:download] == 'true'
+          send_data pdf.render, filename: "#{name}-diagnosis.pdf", type: 'application/pdf'
+        else
+          send_data pdf.render, filename: "#{name}-diagnosis.pdf", type: 'application/pdf', disposition: 'inline'
+        end
+      end
+    end
   end
 
   def new

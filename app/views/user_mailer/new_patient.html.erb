@@ -6,5 +6,7 @@
 
 <p>To view their full profile and diagnosis report, <%= link_to 'click here', @patient %>.</p>
 
+<p>Alternatively, <%= link_to 'download the diagnosis report', user_url(@patient.id, download: true, format: 'pdf') %> as a PDF.</p>
+
 <p>Thanks,</p>
 <p><i>The Docnect Team</i></p>

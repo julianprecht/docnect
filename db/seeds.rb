@@ -248,7 +248,7 @@ Suggested tests:
 &#8227; HIV antibody test;
 &#8227; Epstein-Barr virus antibody test.')
 
-q67 = Question.create!(parent: q65, answer: 'No, I do not have a fever', terminal: true, diagnosis: 'The patient is experiencing mental fatigue and has noted significant weight loss. The patient also suffers from insomnia, depression, panic attacks, anxiety, alcoholism, and/or use of drugs and/or medication:
+q67 = Question.create!(parent: q65, answer: 'No, I do not have a fever', question: 'How much weight have you lost?', terminal: true, diagnosis: 'The patient is experiencing mental fatigue and has noted significant weight loss. The patient also suffers from insomnia, depression, panic attacks, anxiety, alcoholism, and/or use of drugs and/or medication:
 
 &#8227; POSSIBLE PSYCHIATRIC ILLNESS (MOST LIKELY)
 &#8227; POSSIBLE HYPERTHIROIDISM
@@ -366,7 +366,7 @@ Suggested tests:
 &#8227; HIV antibody test;
 &#8227; Epstein-Barr virus antibody test.')
 
-q74 = Question.create!(parent: q72, answer: 'No, I do not have a fever', terminal: true, diagnosis: 'The patient is experiencing mental fatigue and has noted significant weight loss:
+q74 = Question.create!(parent: q72, answer: 'No, I do not have a fever', question: 'How much weight have you lost?', terminal: true, diagnosis: 'The patient is experiencing mental fatigue and has noted significant weight loss:
 
 &#8227; POSSIBLE PSYCHIATRIC ILLNESS (MOST LIKELY)
 &#8227; POSSIBLE HYPERTHIROIDISM
@@ -486,7 +486,7 @@ Suggested tests:
 &#8227; HIV antibody test;
 &#8227; Epstein-Barr virus antibody test.')
 
-q82 = Question.create!(parent: q80, answer: 'No, I do not have a fever', terminal: true, diagnosis: 'The patient is experiencing easy fatigability and has noted significant weight loss. The patient also suffers from insomnia, depression, panic attacks, anxiety, alcoholism, and/or use of drugs and/or medication:
+q82 = Question.create!(parent: q80, answer: 'No, I do not have a fever', question: 'How much weight have you lost?', terminal: true, diagnosis: 'The patient is experiencing easy fatigability and has noted significant weight loss. The patient also suffers from insomnia, depression, panic attacks, anxiety, alcoholism, and/or use of drugs and/or medication:
 
 &#8227; POSSIBLE PSYCHIATRIC ILLNESS (MOST LIKELY)
 &#8227; POSSIBLE HYPERTHIROIDISM
@@ -604,7 +604,7 @@ Suggested tests:
 &#8227; HIV antibody test;
 &#8227; Epstein-Barr virus antibody test.')
 
-q89 = Question.create!(parent: q87, answer: 'No, I do not have a fever', terminal: true, diagnosis: 'The patient is experiencing easy fatigability and has noted significant weight loss:
+q89 = Question.create!(parent: q87, answer: 'No, I do not have a fever', question: 'How much weight have you lost?', terminal: true, diagnosis: 'The patient is experiencing easy fatigability and has noted significant weight loss:
 
 &#8227; POSSIBLE PSYCHIATRIC ILLNESS (MOST LIKELY)
 &#8227; POSSIBLE HYPERTHIROIDISM
@@ -724,7 +724,7 @@ Suggested tests:
 &#8227; HIV antibody test;
 &#8227; Epstein-Barr virus antibody test.')
 
-q97 = Question.create!(parent: q95, answer: 'No, I do not have a fever', terminal: true, diagnosis: 'The patient is experiencing generalized weakness and has noted significant weight loss. The patient also suffers from insomnia, depression, panic attacks, anxiety, alcoholism, and/or use of drugs and/or medication:
+q97 = Question.create!(parent: q95, answer: 'No, I do not have a fever', question: 'How much weight have you lost?', terminal: true, diagnosis: 'The patient is experiencing generalized weakness and has noted significant weight loss. The patient also suffers from insomnia, depression, panic attacks, anxiety, alcoholism, and/or use of drugs and/or medication:
 
 &#8227; POSSIBLE PSYCHIATRIC ILLNESS (MOST LIKELY)
 &#8227; POSSIBLE HYPERTHIROIDISM
@@ -842,7 +842,7 @@ Suggested tests:
 &#8227; HIV antibody test;
 &#8227; Epstein-Barr virus antibody test.')
 
-q104 = Question.create!(parent: q102, answer: 'No, I do not have a fever', terminal: true, diagnosis: 'The patient is experiencing generalized weakness and has noted significant weight loss:
+q104 = Question.create!(parent: q102, answer: 'No, I do not have a fever', question: 'How much weight have you lost?', terminal: true, diagnosis: 'The patient is experiencing generalized weakness and has noted significant weight loss:
 
 &#8227; POSSIBLE PSYCHIATRIC ILLNESS (MOST LIKELY)
 &#8227; POSSIBLE HYPERTHIROIDISM
@@ -1090,7 +1090,7 @@ q147 = Question.create!(parent: q13, answer: 'If you are a WOMAN, any of these s
 &#8227; Irritation of the genital area;
 &#8227; Itching;
 &#8227; Inflammation around the labia and/or perineal (space between the vagina and the anus) areas;
-&#8227;  An increased, strong smelling liquid coming out of the vagina (vaginal discharge).
+&#8227; An increased, strong smelling liquid coming out of the vagina (vaginal discharge).
 
 Expected causes:
 
