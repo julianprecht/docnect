@@ -40,9 +40,9 @@ class User < ApplicationRecord
             presence: true,
             length: { maximum: 255 },
             if: :is_doctor?
-  # Regular expression matches numbers of form +XX XXXX XXXXXX | +XX XXXXX XXXXXX | XXXXX XXXXXX
-  # Whitespaces are optional but cannot exceed a single space (impossible anyway due to stripping whitespace)
-  VALID_PHONE_NUMBER_REGEX = /\A(\+\d{2}\s?\d?\d{4}|\d{5})\s?\d{6}\z/i
+  # Regular expression matches numbers of form XXXXX XXXXXX | (+XX?X?)? (X)? XXXX XXXXXX - brackets, hyphens, slashes and spaces optional
+  # Weak validation - basically ensures roughly correct length and only valid character entry
+  VALID_PHONE_NUMBER_REGEX = /\A([ \-()\/]?\d[ \-()\/]?){11}|([ \-()\/]?\+[ \-()\/]?)([ \-()\/]?\d[ \-()\/]?){1,3}([ ])?([ \-()\/]?\d[ \-()\/]?){10,11}\z/i
   validates :phone,
             presence: true,
             format: { with: VALID_PHONE_NUMBER_REGEX },
