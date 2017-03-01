@@ -12,9 +12,9 @@
                     (<%= user.email %>)
                     &nbsp;| &nbsp;<%= user.group?(1) ? 'Patient' : 'Doctor' %>
                     <% if !user.valid? %>
-                        (account incomplete)
+                        &nbsp;- &nbsp;account incomplete)
                     <% elsif !user.activated %>
-                        (not activated, created <%= time_ago_in_words(user.created_at) %> ago)
+                        &nbsp;- &nbsp;(not activated, created <%= time_ago_in_words(user.created_at) %> ago)
                     <% end %>
                     <% if user.last_online %>
                         &nbsp;| &nbsp;Last online <%= time_ago_in_words(user.last_online) %> ago

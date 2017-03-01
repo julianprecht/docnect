@@ -105,8 +105,6 @@ class UsersController < ApplicationController
       @user.password = random
       @user.password_confirmation = random
       @user.user_group = 2
-    else
-      @user.last_online = Time.zone.now
     end
 
     if @user.save

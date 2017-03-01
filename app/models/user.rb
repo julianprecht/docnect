@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :doctors, :class_name => 'Appointment', :foreign_key => 'doctor_id', dependent: :destroy
-  has_many :patients, :class_name => 'Appointment', :foreign_key => 'pupil_id', dependent: :destroy
+  has_many :patients, :class_name => 'Appointment', :foreign_key => 'patient_id', dependent: :destroy
 
   # Remove whitespace
   auto_strip_attributes :email, :name, :specialization, :phone, :occupation, :nationality, :languages, :squish => true
@@ -42,7 +42,7 @@ class User < ApplicationRecord
             if: :is_doctor?
   # Regular expression matches numbers of form XXXXX XXXXXX | (+XX?X?)? (X)? XXXX XXXXXX - brackets, hyphens, slashes and spaces optional
   # Weak validation - basically ensures roughly correct length and only valid character entry
-  VALID_PHONE_NUMBER_REGEX = /\A([ \-()\/]?\d[ \-()\/]?){11}|([ \-()\/]?\+[ \-()\/]?)([ \-()\/]?\d[ \-()\/]?){1,3}([ ])?([ \-()\/]?\d[ \-()\/]?){10,11}\z/i
+  VALID_PHONE_NUMBER_REGEX = /\A(([ \-()\/]?\d[ \-()\/]?){11}|([ \-()\/]?\+[ \-()\/]?)([ \-()\/]?\d[ \-()\/]?){1,3}([ ])?([ \-()\/]?\d[ \-()\/]?){10,11})\z/i
   validates :phone,
             presence: true,
             format: { with: VALID_PHONE_NUMBER_REGEX },

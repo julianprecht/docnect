@@ -4,7 +4,7 @@
       <h4 class="patient-title">
         <%= current_user.group?(1) ? 'Last Diagnostic Test Completed:' : 'Inferred Diagnosis:' %>
       </h4>
-      <div class="patient-info">
+      <%= raw(!current_user.group?(1) ? '<div class="patient-info" style="color:red;">' : '<div class="patient-info">') %>
         <%= current_user.group?(1) ? raw(time_ago_in_words(@user.last_test) + ' ago - ' + link_to('click here', test_path(answer_id: 1), method: :post) + ' to begin a new test') : simple_format(@diagnosis.last.diagnosis == "The patient's symptoms did not match any listed by Docnect:" ? @diagnosis.last.diagnosis + "\n\n" + @diagnosis.last.answer : @diagnosis.last.diagnosis) %>
       </div>
     </div>
@@ -22,7 +22,7 @@
     <h3 class="show-section"><%= current_user.group?(1) ? 'Your' : 'Patient' %> Answers:</h3>
     <% @diagnosis.each do |diagnosis| %>
         <% unless diagnosis.answer.blank? %>
-              <div class="patient-info">
+              <div class="patient-info" style="color:red;">
                 <%= simple_format(diagnosis.answer) %>
               </div>
             </div>
