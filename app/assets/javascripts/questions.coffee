@@ -2,9 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 ready = ->
-  $('select').append('<option value="-1" style="display:none; text-align:center;" disabled>No doctors could be found matching the search query</option>')
+  $('#doctor_ids').append('<option value="-1" style="display:none; text-align:center;" disabled>No doctors could be found matching the search query</option>')
 
-  $('select').mousedown((e) ->
+  $('#doctor_ids').mousedown((e) ->
     e.preventDefault()
     select = this
     scroll = select.scrollTop
