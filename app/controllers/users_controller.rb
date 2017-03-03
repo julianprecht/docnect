@@ -34,6 +34,8 @@ class UsersController < ApplicationController
 
       when 2
         @appointments = Appointment.where(doctor_id: current_user.id)
+        @unread = Appointment.where(doctor_id: current_user.id, seen: false)
+        @unseen = User.all.where(id: @unread.map(&:patient_id))
         if params.has_key?(:search) && !params[:search].strip.blank?
           @users = User.all.where(id: @appointments.map(&:patient_id)).where('LOWER(name) LIKE LOWER(?)', "%#{params[:search]}%").order(last_test: :desc).paginate(page: params[:page], :per_page => 15)
           @title = "Showing Patients Matching \"#{params[:search]}\""
@@ -69,7 +71,10 @@ class UsersController < ApplicationController
     @doctors = []
     @appointments = Appointment.all.where(patient_id: @user.id)
     @appointments.each do |appointment|
-      @doctors << User.find(appointment.doctor_id)
+      @doctors << appointment.doctor
+      if !appointment.seen && current_user?(appointment.doctor)
+        appointment.update_attribute('seen', true)
+      end
     end
 
     # Allow PDF profile generation

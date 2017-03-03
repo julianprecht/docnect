@@ -15,7 +15,7 @@ module QuestionsHelper
   end
 
   def count_patients
-    count = Appointment.all.where(doctor_id: current_user.id).length
+    count = Appointment.all.where(doctor_id: current_user.id, seen: false).length
     if count == 0
       count = 'none'
     end
